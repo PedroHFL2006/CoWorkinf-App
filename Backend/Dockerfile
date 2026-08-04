@@ -4,15 +4,21 @@ FROM node:20-alpine
 # Define o diretório de trabalho
 WORKDIR /app
 
-# Copia as dependências e instala
+# Copia arquivos de dependências e do Prisma
 COPY package*.json ./
+COPY prisma ./prisma/
+
+# Instala as dependências
 RUN npm install
 
-# Copia o restante dos arquivos do projeto
+# Gera o cliente do Prisma ORM
+RUN npx prisma generate
+
+# Copia o restante dos arquivos da API
 COPY . .
 
-# Expõe a porta que o Hugging Face exige (7860)
-EXPOSE 7860
+# Expõe a porta que a API usa (3000)
+EXPOSE 3000
 
-# Inicia o servidor escutando no IP global e na porta 7860
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "7860"]
+# Inicia o servidor Node/Express
+CMD ["npm", "run", "dev"]

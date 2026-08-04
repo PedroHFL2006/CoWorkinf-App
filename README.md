@@ -1,3 +1,13 @@
+---
+title: Co Working API
+emoji: ⚡
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 3000
+pinned: false
+---
+
 # Co-Working API
 
 Este projeto é uma API REST para gerenciamento de um espaço de Co-Working, desenvolvida durante o Bootcamp. A arquitetura foi desenhada com foco em boas práticas de mercado, como o Princípio de Responsabilidade Única (SRP) e o padrão MVC adaptado para APIs em camadas.
