@@ -1,10 +1,10 @@
 # Imagem base oficial do Node.js
 FROM node:20-alpine
 
-# Define o diretório de trabalho
+# Define o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copia arquivos de dependências a partir da pasta Backend
+# Copia os arquivos do package.json e da pasta prisma a partir do Backend
 COPY Backend/package*.json ./
 COPY Backend/prisma ./prisma/
 
@@ -14,14 +14,14 @@ RUN npm install
 # Gera o cliente do Prisma ORM
 RUN npx prisma generate
 
-# Copia o código do Backend
+# Copia todo o restante do código da pasta Backend
 COPY Backend/ .
 
-# Expõe a porta exigida pelo Hugging Face (7860)
-EXPOSE 7860
+# Expõe a porta usada pela aplicação
+EXPOSE 3000
 
-# Define a variável de ambiente PORT para o Express escutar na 7860
-ENV PORT=7860
+# Define a variável de ambiente para o Express escutar na porta correta
+ENV PORT=3000
 
 # Inicia o servidor Node
 CMD ["npm", "run", "dev"]
