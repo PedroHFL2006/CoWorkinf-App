@@ -1,0 +1,52 @@
+// prisma/schema.prisma
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Usuario {
+    id            Int       @id @default(autoincrement())
+    nome          String
+    email         String    @unique
+    senha         String
+    telefone      String
+    cpf           String    @unique
+    dtCriacao     DateTime  @default(now()) @map("dt_criacao")
+    dtAtualizacao DateTime  @updatedAt @map("dt_atualizacao")
+    admin         Boolean   @default(false) @map("e_admin")
+    reservas      Reserva[] //não vai existir no banco de dados
+
+    @@map("usuarios")
+}
+
+model Sala {
+    id            Int       @id @default(autoincrement())
+    nome          String
+    capacidade    Int
+    descricao     String?
+    precoLocacao  Float     @map("preco_locacao")
+    dtCriacao     DateTime  @default(now()) @map("dt_criacao")
+    dtAtualizacao DateTime  @updatedAt @map("dt_atualizacao")
+    reservas      Reserva[] //não vai existir no banco de dados
+
+    @@map("salas")
+}
+
+model Reserva {
+    id            Int      @id @default(autoincrement())
+    dia           DateTime
+    turno         String
+    dtCriacao     DateTime @default(now()) @map("dt_criacao")
+    dtAtualizacao DateTime @updatedAt @map("dt_atualizacao")
+    idUsuario     Int      @map("id_usuario")
+    idSala        Int      @map("id_sala")
+    usuario       Usuario  @relation(fields: [idUsuario], references: [id], onDelete: Cascade)
+    sala          Sala     @relation(fields: [idSala], references: [id], onDelete: Cascade)
+
+    @@map("reservas")
+}

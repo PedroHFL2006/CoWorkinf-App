@@ -1,0 +1,132 @@
+GET http://localhost:3000/usuarios
+Accept: application/json
+
+---
+
+POST http://localhost:3000/usuarios
+Content-Type: application/json
+
+{
+    "nome": "Pedro Silva",
+    "email": "pedro@email.com",
+    "senha": "senha123",
+    "telefone": "11999999999",
+    "cpf": "12345678900"
+}
+
+---
+
+POST http://localhost:3000/usuarios
+Content-Type: application/json
+
+{
+    "nome": "A",
+    "email": "emailinvalido",
+    "senha": "123",
+    "cpf": "1234"
+}
+
+---
+
+GET http://localhost:3000/salas
+Accept: application/json
+
+---
+
+# Listar salas disponíveis para uma data e turno específicos
+GET http://localhost:3000/salas?dia=2026-08-15&turno=Manhã
+Accept: application/json
+
+---
+
+GET http://localhost:3000/salas/1
+Accept: application/json
+
+---
+
+POST http://localhost:3000/salas
+Content-Type: application/json
+
+{
+    "nome": "Sala Alpha",
+    "capacidade": 10,
+    "descricao": "Sala com projetor e ar-condicionado",
+    "precoLocacao": 150.00
+}
+
+---
+
+POST http://localhost:3000/salas
+Content-Type: application/json
+
+{
+    "nome": "S",
+    "capacidade": -5,
+    "precoLocacao": 0
+}
+
+---
+
+PUT http://localhost:3000/salas/1
+Content-Type: application/json
+
+{
+    "nome": "Sala Alpha Renovada",
+    "capacidade": 15,
+    "descricao": "Sala reformada com novos equipamentos",
+    "precoLocacao": 200.00
+}
+
+---
+
+DELETE http://localhost:3000/salas/1
+
+---
+
+GET http://localhost:3000/reservas
+Accept: application/json
+
+---
+
+GET http://localhost:3000/reservas/1
+Accept: application/json
+
+---
+
+POST http://localhost:3000/reservas
+Content-Type: application/json
+
+{
+    "dia": "2026-08-15",
+    "turno": "Manhã",
+    "idUsuario": 1,
+    "idSala": 1
+}
+
+---
+
+POST http://localhost:3000/reservas
+Content-Type: application/json
+
+{
+    "dia": "2026-08-15",
+    "turno": "Almoco",
+    "idUsuario": -1,
+    "idSala": 0
+}
+
+---
+
+PUT http://localhost:3000/reservas/1
+Content-Type: application/json
+
+{
+    "dia": "2026-08-20",
+    "turno": "Tarde",
+    "idUsuario": 1,
+    "idSala": 1
+}
+
+---
+
+DELETE http://localhost:3000/reservas/1
